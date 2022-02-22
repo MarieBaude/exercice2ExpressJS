@@ -4,8 +4,26 @@ html
     body 
         h1= message
         nav
-            a(href='/') Home
-            a(href='/about') About
-            a(href='/blog') Blog
-            a(href='/portfolio') Portfolio
-            a(href='/contact') Contact
+            li
+                a(href='/') Home
+            li
+                a(href='/about') About
+            li
+                a(href='/blog') Blog
+            li
+                a(href='/portfolio') Portfolio
+            li
+                a(href='/contact') Contact
+        
+        form(action="/contact", method="POST")
+            p
+                | name :
+                input(type="text", name='name', value='')     
+                | age :
+                input(type="text", name='age', value='')     
+                | mail :
+                input(type="text", name='mail', value='')
+            input(type="submit", value="Submit")
+
+            if created
+                h2.greeen= 'User created!'      

@@ -14,21 +14,45 @@ let bdd = [
     {name: 'Hachemi', age: 45, mail: 'hachemi@gmail.com'},
 ]
 
-// rend la vue
+// model
+class Person {
+    constructor (name, age, mail) {
+        this.name = name;
+        this.age = age;
+        this.mail = mail
+    }
+}
+
+// controler, router
 app.get('/', (req, res) => {
-    res.render('index', {title: 'Home', message: 'Hello in home!', user: bdd})
+    let arrayUser = [];
+    bdd.map(item => {
+        let newPerson = new Person (item.name, item.age, item.mail)
+        arrayUser.push(newPerson)
+    })
+    res.render('index', {title: 'Home', message: 'Hello in home!', user: arrayUser})
 })
+
 app.get('/about', (req, res) => {
     res.render('about', {title: 'About', message: 'Hello in about!'})
 })
+
 app.get('/blog', (req, res) => {
     res.render('blog', {title: 'Blog', message: 'Hello in blog!'})
 })
+
 app.get('/portfolio', (req, res) => {
     res.render('portfolio', {title: 'Portfolio', message: 'Hello in portfolio!'})
 })
+
 app.get('/contact', (req, res) => {
-    res.render('contact', {title: 'Contact', message: 'Hello in contact!'})
+    res.render('contact', {title: 'Contact', message: 'Hello in contact!', created: false})
+})
+
+app.post('/contact', (req, res) => {
+    console.log(req.body)
+    bdd.push(req.body)
+    res.render('contact', {title: 'Contact', message: 'Hello in contact!', created: true})
 })
 
 // rend la vue profile avec parametre dans url du nom
