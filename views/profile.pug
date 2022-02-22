@@ -15,7 +15,6 @@ html
             li
                 a(href='/contact') Contact
 
-        ul
-            each val in user 
-                li 
-                    a(href="/profile/"+val.name)=val.name
+        h2= user.name
+        h2= user.age
+        h2= user.mail

@@ -1,6 +1,9 @@
 const express = require('express')
 const app = express()
 
+app.use(express.json())
+app.use(express.urlencoded({extended:true}))
+
 app.set('view engine', 'pug');
 
 let bdd = [
@@ -11,6 +14,7 @@ let bdd = [
     {name: 'Hachemi', age: 45, mail: 'hachemi@gmail.com'},
 ]
 
+// rend la vue
 app.get('/', (req, res) => {
     res.render('index', {title: 'Home', message: 'Hello in home!', user: bdd})
 })
@@ -27,6 +31,13 @@ app.get('/contact', (req, res) => {
     res.render('contact', {title: 'Contact', message: 'Hello in contact!'})
 })
 
+// rend la vue profile avec parametre dans url du nom
+app.get('/profile/:name', (req, res) => {
+    let user = bdd.filter(item => item.name === req.params.name)[0] // filtre bdd, récup l'item (ligne de la bdd) avec le même nom 
+    res.render('profile', {title: 'Profil', message: 'Hello in profile!', user: user})
+})
+
+// n'affiche pas ce qu'il y a en dessous de listen
 app.listen(8080, () => {
     console.log('listening')
 })
